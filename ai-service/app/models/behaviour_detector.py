@@ -7,6 +7,8 @@ Uses the same Ultralytics interface as YOLO (RT-DETR is available in the
 Ultralytics package as `RTDETR`).
 """
 
+import os
+
 import numpy as np
 from loguru import logger
 from ultralytics import RTDETR
@@ -25,6 +27,13 @@ class BehaviourDetector(BaseDetector):
         self.model: RTDETR | None = None
 
     def warmup(self) -> None:
+        if not os.path.exists(self.weights_path):
+            logger.warning(
+                f"RT-DETR weights not found at {self.weights_path}; running AI service in demo mode with no detections."
+            )
+            self.model = None
+            return
+
         logger.info(f"Loading RT-DETR behaviour model from {self.weights_path}")
         self.model = RTDETR(self.weights_path)
         dummy = np.zeros((640, 640, 3), dtype=np.uint8)
@@ -33,6 +42,9 @@ class BehaviourDetector(BaseDetector):
     def detect(self, frame: np.ndarray) -> list[RawDetection]:
         if self.model is None:
             self.warmup()
+
+        if self.model is None:
+            return []
 
         results = self.model.predict(
             frame,

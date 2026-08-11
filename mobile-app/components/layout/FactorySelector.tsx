@@ -15,20 +15,26 @@ export function FactorySelector() {
     <>
       <Pressable
         onPress={() => setOpen(true)}
-        className="flex-row items-center gap-2 self-start bg-surface border border-border rounded-pill pl-3 pr-3.5 py-2 mx-5 mb-2"
+        className="mx-5 mb-2 flex-row items-center gap-3 rounded-[22px] border border-border bg-surface px-4 py-3 shadow-sm"
+        style={{ shadowColor: "#1C114A", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.06, shadowRadius: 12, elevation: 2 }}
       >
-        <Building2 size={15} color={colors.primary.DEFAULT} />
-        <Text className="text-sm font-semibold text-ink" numberOfLines={1}>
-          {selected?.name ?? "Select factory"}
-        </Text>
+        <View className="h-10 w-10 items-center justify-center rounded-2xl bg-primary-50">
+          <Building2 size={16} color={colors.primary.DEFAULT} />
+        </View>
+        <View className="flex-1">
+          <Text className="text-[10px] font-semibold uppercase tracking-[1.2px] text-muted">Active site</Text>
+          <Text className="text-sm font-semibold text-ink" numberOfLines={1}>
+            {selected?.name ?? "Select factory"}
+          </Text>
+        </View>
         <ChevronDown size={16} color={colors.muted} />
       </Pressable>
 
       <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
-        <Pressable className="flex-1 bg-black/30 justify-end" onPress={() => setOpen(false)}>
-          <Pressable className="bg-surface rounded-t-3xl pt-4 pb-8 px-5 max-h-[70%]">
-            <View className="w-10 h-1 rounded-full bg-border self-center mb-4" />
-            <Text className="text-lg font-bold text-ink mb-3">Select Factory</Text>
+        <Pressable className="flex-1 bg-black/35 justify-end" onPress={() => setOpen(false)}>
+          <Pressable className="max-h-[72%] rounded-t-[30px] bg-surface px-5 pb-8 pt-4">
+            <View className="mb-4 h-1.5 w-12 self-center rounded-full bg-border" />
+            <Text className="mb-3 text-lg font-bold text-ink">Select Factory</Text>
             <FlatList
               data={factories}
               keyExtractor={(item) => item.id}
@@ -62,11 +68,11 @@ function FactoryRow({
   return (
     <Pressable
       onPress={onPress}
-      className="flex-row items-center justify-between py-3.5 border-b border-border"
+      className="flex-row items-center justify-between border-b border-border py-3.5"
     >
-      <View>
-        <Text className="text-base font-medium text-ink">{factory.name}</Text>
-        {factory.location ? <Text className="text-xs text-muted mt-0.5">{factory.location}</Text> : null}
+      <View className="flex-1 pr-3">
+        <Text className="text-base font-semibold text-ink">{factory.name}</Text>
+        {factory.location ? <Text className="mt-0.5 text-xs text-muted">{factory.location}</Text> : null}
       </View>
       {active ? <Check size={18} color={colors.primary.DEFAULT} /> : null}
     </Pressable>

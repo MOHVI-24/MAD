@@ -13,14 +13,15 @@ interface InputProps extends TextInputProps {
 export const Input = forwardRef<TextInput, InputProps>(
   ({ label, error, leftIcon, rightIcon, className, ...props }, ref) => {
     return (
-      <View className="gap-1.5">
-        {label ? <Text className="text-sm font-medium text-ink">{label}</Text> : null}
+      <View className="gap-2">
+        {label ? <Text className="text-sm font-semibold text-ink">{label}</Text> : null}
         <View
           className={cn(
-            "flex-row items-center gap-2 bg-surface border rounded-2xl px-4 h-14",
+            "flex-row items-center gap-3 rounded-2xl border bg-white/80 px-4 h-14 shadow-sm",
             error ? "border-danger" : "border-border",
             className
           )}
+          style={{ shadowColor: "#1C114A", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.06, shadowRadius: 12, elevation: 2 }}
         >
           {leftIcon}
           <TextInput
@@ -31,7 +32,7 @@ export const Input = forwardRef<TextInput, InputProps>(
           />
           {rightIcon}
         </View>
-        {error ? <Text className="text-xs text-danger">{error}</Text> : null}
+        {error ? <Text className="text-xs font-medium text-danger">{error}</Text> : null}
       </View>
     );
   }

@@ -13,11 +13,21 @@ export default function AppLayout() {
           tabBarInactiveTintColor: colors.muted,
           tabBarStyle: {
             borderTopColor: colors.border,
-            height: 64,
+            backgroundColor: "#FFFFFF",
+            height: 72,
             paddingTop: 8,
-            paddingBottom: 10,
+            paddingBottom: 12,
+            borderTopLeftRadius: 22,
+            borderTopRightRadius: 22,
+            position: "absolute",
+            borderTopWidth: 1,
+            shadowColor: "#1C114A",
+            shadowOpacity: 0.06,
+            shadowRadius: 12,
+            elevation: 8,
           },
-          tabBarLabelStyle: { fontSize: 11, fontWeight: "600" },
+          tabBarLabelStyle: { fontSize: 11, fontWeight: "700" },
+          tabBarItemStyle: { borderRadius: 16 },
         }}
       >
         <Tabs.Screen

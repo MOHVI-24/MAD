@@ -1,5 +1,4 @@
 import { Text, View } from "react-native";
-import { colors } from "../../theme";
 import { severityColor } from "../../utils/severity";
 import { formatSeconds, formatViolationType } from "../../utils/format";
 import type { ReportDetailResponse } from "../../src/types/api";

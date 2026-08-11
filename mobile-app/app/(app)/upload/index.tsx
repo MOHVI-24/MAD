@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View, Pressable, Alert } from "react-native";
+import { Text, View, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
@@ -8,7 +8,6 @@ import {
   FilmIcon,
   Camera,
   FolderOpen,
-  X,
   CheckCircle2,
   RotateCcw,
   Upload as UploadIcon,

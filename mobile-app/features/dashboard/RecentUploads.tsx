@@ -13,13 +13,13 @@ export function RecentUploads({ uploads }: { uploads: UploadResponse[] }) {
   return (
     <View className="px-5 gap-3">
       <View className="flex-row items-center justify-between">
-        <Text className="text-base font-bold text-ink">Recent Uploads</Text>
+        <Text className="text-base font-bold text-ink">Recent uploads</Text>
         <Pressable onPress={() => router.push("/(app)/reports")}>
           <Text className="text-sm font-medium text-primary">See all</Text>
         </Pressable>
       </View>
 
-      <Card padded={false}>
+      <Card padded={false} className="overflow-hidden rounded-[24px] border border-border bg-surface">
         {uploads.slice(0, 4).map((upload, i) => (
           <Pressable
             key={upload.id}
@@ -28,19 +28,19 @@ export function RecentUploads({ uploads }: { uploads: UploadResponse[] }) {
                 router.push(`/(app)/reports/${upload.reportId}` as never);
               }
             }}
-            className={`flex-row items-center gap-3 p-4 ${i < uploads.length - 1 ? "border-b border-border" : ""}`}
+            className={`flex-row items-center gap-3 px-4 py-3.5 ${i < uploads.length - 1 ? "border-b border-border" : ""}`}
           >
-            <View className="w-10 h-10 rounded-xl bg-primary-50 items-center justify-center">
+            <View className="h-11 w-11 items-center justify-center rounded-2xl bg-primary-50">
               <FileVideo size={18} color={colors.primary.DEFAULT} />
             </View>
             <View className="flex-1">
-              <Text className="text-sm font-medium text-ink" numberOfLines={1}>
+              <Text className="text-sm font-semibold text-ink" numberOfLines={1}>
                 {upload.originalName ?? "Untitled video"}
               </Text>
-              <Text className="text-xs text-muted mt-0.5">{formatRelative(upload.createdAt)}</Text>
+              <Text className="mt-0.5 text-xs text-muted">{formatRelative(upload.createdAt)}</Text>
             </View>
             <StatusBadge status={upload.status} />
-            <ChevronRight size={16} color={colors.muted} />
+            <ChevronRight size={15} color={colors.muted} />
           </Pressable>
         ))}
       </Card>

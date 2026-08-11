@@ -1,4 +1,3 @@
-import { View } from "react-native";
 import { BarChart } from "react-native-gifted-charts";
 import { colors } from "../../theme";
 

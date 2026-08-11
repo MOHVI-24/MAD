@@ -4,6 +4,8 @@ Detects: helmet, no_helmet, safety_vest, no_vest, gloves, no_gloves, person,
 fire, smoke.
 """
 
+import os
+
 import numpy as np
 from loguru import logger
 from ultralytics import YOLO
@@ -24,6 +26,13 @@ class PpeDetector(BaseDetector):
         self.model: YOLO | None = None
 
     def warmup(self) -> None:
+        if not os.path.exists(self.weights_path):
+            logger.warning(
+                f"YOLO weights not found at {self.weights_path}; running AI service in demo mode with no detections."
+            )
+            self.model = None
+            return
+
         logger.info(f"Loading YOLOv11 PPE model from {self.weights_path}")
         self.model = YOLO(self.weights_path)
         dummy = np.zeros((640, 640, 3), dtype=np.uint8)
@@ -32,6 +41,9 @@ class PpeDetector(BaseDetector):
     def detect(self, frame: np.ndarray) -> list[RawDetection]:
         if self.model is None:
             self.warmup()
+
+        if self.model is None:
+            return []
 
         results = self.model.track(
             frame,

@@ -13,7 +13,7 @@ export function Skeleton({ className, style, ...props }: ViewProps) {
 
   useEffect(() => {
     opacity.value = withRepeat(withTiming(1, { duration: 800 }), -1, true);
-  }, []);
+  }, [opacity]);
 
   const animatedStyle = useAnimatedStyle(() => ({ opacity: opacity.value }));
 
